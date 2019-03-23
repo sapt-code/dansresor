@@ -10,12 +10,14 @@ public class Customer {
 	private String address;
 	private String customerNr; //id
 	private ArrayList<String> allergies;
+	private String danceSkill;
 	
 	//Constructor
-	public Customer(String name, String customerNr) {
+	public Customer(String name, String customerNr, String danceSkill) {
 		this.name = name;
 		this.customerNr = customerNr;
 		this.allergies = new ArrayList<String>();
+		this.danceSkill = danceSkill;
 	}
 	
 	//Getter and setters
@@ -60,5 +62,11 @@ public class Customer {
 	}
 	public void setAllergies(ArrayList<String> allergies) {
 		this.allergies = allergies;
+	}
+	public String getDanceSkill() {
+		return danceSkill;
+	}
+	public void setDanceSkill(String danceSkill) {
+		this.danceSkill = danceSkill;
 	}
 }
