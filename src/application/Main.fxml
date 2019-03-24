@@ -24,9 +24,9 @@
                               <TextField fx:id="searchField" />
                            </children>
                         </HBox>
-                        <Button fx:id="createButton" mnemonicParsing="false" prefWidth="127.0" text="Create customer" />
-                        <Button fx:id="editButton" mnemonicParsing="false" prefWidth="127.0" text="Edit customer" />
-                        <Button fx:id="deleteButton" mnemonicParsing="false" prefWidth="127.0" text="Delete customer" />
+                        <Button fx:id="createButton" mnemonicParsing="false" onAction="#createButton_click" prefWidth="127.0" text="Create customer" />
+                        <Button fx:id="editButton" disable="true" mnemonicParsing="false" onAction="#editButton_click" prefWidth="127.0" text="Edit customer" />
+                        <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" onAction="#deleteButton_click" prefWidth="127.0" text="Delete customer" />
                      </children>
                   </VBox>
                </children>
