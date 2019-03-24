@@ -27,5 +27,5 @@ public class Register {
 		this.customers.remove(customer);
 	}
 	
-	//Lägg till findmetod genom filtrering
+	//Lägg till find-metod genom filtrering
 }
