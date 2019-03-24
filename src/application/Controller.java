@@ -2,6 +2,8 @@ package application;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -41,13 +43,13 @@ public class Controller {
 							"Monserrate Goforth",
 							"Clemencia Duffey"};
 	
-	@FXML public void initialize( ) {
+	@FXML public void initialize() {
 		//Init reg
 		Register register = new Register();
 		
 		//Test data
 		for (int i = 0; i < testNames.length; i++) {
-			createCustomer(testNames[i], Integer.toString(customerNr), "Novice", register);
+			createCustomer(testNames[i], customerNr, "Novice", register);
 		}
 		
 		//Init table
@@ -63,11 +65,31 @@ public class Controller {
 		
 		//Set table
 		customerTable.setItems(customerList);
+		
+		//Filter
+		FilteredList<Customer> filteredCustomerList = new FilteredList<>(customerList, p -> true);
+		
+		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredCustomerList.setPredicate(customer -> {
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+
+				// Compare input to filter
+				String lowerCaseFilter = newValue.toLowerCase();
+				
+				return customer.getCustomerNr().toLowerCase().contains(lowerCaseFilter) || customer.getName().toLowerCase().contains(lowerCaseFilter);
+			});
+		});
+		
+		SortedList<Customer> sortedCustomerList = new SortedList<>(filteredCustomerList);
+		sortedCustomerList.comparatorProperty().bind(customerTable.comparatorProperty());
+		customerTable.setItems(sortedCustomerList);
 	}
 	
 	//Methods
-	private void createCustomer(String name, String customerNbr, String danceSkill, Register register) {
-		Customer c = new Customer(name, customerNbr, danceSkill);
+	private void createCustomer(String name, int customerNbr, String danceSkill, Register register) {
+		Customer c = new Customer(name, String.format("%07d", customerNbr), danceSkill);
 		customerNr++;
 		register.addCustomer(c);
 		customerList = FXCollections.observableArrayList(register.getCustomers());

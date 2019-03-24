@@ -19,7 +19,7 @@ public class Customer {
 		this.allergies = new ArrayList<String>();
 		this.danceSkill = danceSkill;
 	}
-	
+
 	//Getter and setters
 	public String getName() {
 		return name;

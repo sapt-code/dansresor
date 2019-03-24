@@ -27,5 +27,12 @@ public class Register {
 		this.customers.remove(customer);
 	}
 	
-	//Lägg till find-metod genom filtrering
+	public Boolean constainsCustomer(String cNR) {
+		for (Customer c: customers) {
+			if (c.getCustomerNr().equals(cNR)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
