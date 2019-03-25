@@ -91,7 +91,7 @@ public class Controller {
 		sortedCustomerList.comparatorProperty().bind(customerTable.comparatorProperty());
 		customerTable.setItems(sortedCustomerList);
 		
-		//Listener when a 
+		//Listener when a customer is selected
 		customerTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 			refreshButtons();
 		});
