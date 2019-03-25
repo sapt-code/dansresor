@@ -27,7 +27,7 @@ public class Register {
 		this.customers.remove(customer);
 	}
 	
-	//Antagligen onödig
+	//onödig
 	public Boolean constainsCustomer(String cNR) {
 		for (Customer c: customers) {
 			if (c.getCustomerNr().equals(cNR)) {
