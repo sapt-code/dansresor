@@ -1,16 +1,23 @@
 package application;
 
+import java.io.IOException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class Controller {
 	@FXML private TextField searchField;
@@ -100,11 +107,21 @@ public class Controller {
 	}
 	
 	@FXML public void createButton_click(ActionEvent e) {
-		
+		try {
+			createNewWindow("Create.fxml", "Create Customer");
+			
+		} catch(Exception err) {
+			err.printStackTrace();
+		}
 	}
 	
 	@FXML public void editButton_click(ActionEvent e) {
-		
+		try {
+			createNewWindow("Edit.fxml", "Edit Customer");
+			
+		} catch(Exception err) {
+			err.printStackTrace();
+		}
 	}
 	
 	//Methods
@@ -130,5 +147,21 @@ public class Controller {
 			deleteButton.setDisable(true);
 			editButton.setDisable(true);
 		}
+	}
+	
+	private void createNewWindow(String fxml, String title) {
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getResource(fxml));
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setScene(new Scene(root));
+			stage.setTitle(title);
+			stage.centerOnScreen();
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
