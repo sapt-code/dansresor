@@ -1,7 +1,6 @@
 package application;
 
 import java.io.IOException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -38,6 +37,7 @@ public class Controller {
 	//Other variables
 	private ObservableList<Customer> customerList = FXCollections.observableArrayList();
 	int customerNr = 1;
+	
 	//Init reg
 	Register register = new Register();
 	
