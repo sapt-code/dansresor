@@ -19,47 +19,53 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Controller {
-	@FXML private TextField searchField;
-	@FXML private Button createButton;
-	@FXML private Button editButton;
-	@FXML private Button deleteButton;
-	//Table variables
-	@FXML private TableView<Customer> customerTable;
-	@FXML private TableColumn<Customer, String> customerNrCol;
-	@FXML private TableColumn<Customer, String> customerNameCol;
-	@FXML private TableColumn<Customer, String> customerPersNrCol;
-	@FXML private TableColumn<Customer, String> customerEmailCol;
-	@FXML private TableColumn<Customer, String> customerTelCol;
-	@FXML private TableColumn<Customer, String> customerAddressCol;
-	@FXML private TableColumn<Customer, String> customerAllergiesCol;
-	@FXML private TableColumn<Customer, String> customerDanceSkillCol;
-	
-	//Other variables
+	@FXML
+	private TextField searchField;
+	@FXML
+	private Button createButton;
+	@FXML
+	private Button editButton;
+	@FXML
+	private Button deleteButton;
+	// Table variables
+	@FXML
+	private TableView<Customer> customerTable;
+	@FXML
+	private TableColumn<Customer, String> customerNrCol;
+	@FXML
+	private TableColumn<Customer, String> customerNameCol;
+	@FXML
+	private TableColumn<Customer, String> customerPersNrCol;
+	@FXML
+	private TableColumn<Customer, String> customerEmailCol;
+	@FXML
+	private TableColumn<Customer, String> customerTelCol;
+	@FXML
+	private TableColumn<Customer, String> customerAddressCol;
+	@FXML
+	private TableColumn<Customer, String> customerAllergiesCol;
+	@FXML
+	private TableColumn<Customer, String> customerDanceSkillCol;
+
+	// Other variables
 	private ObservableList<Customer> customerList = FXCollections.observableArrayList();
 	int customerNr = 1;
-	
-	//Init reg
+
+	// Init reg
 	Register register = new Register();
-	
-	//Test variables
-	String[] testNames = {"Irma Guice",
-							"Cecil Helper",
-							"Jaunita Morrow",
-							"Lucina Seymour",  
-							"Roberta Beecroft",
-							"Edmund Pershall",
-							"Brenna Mistretta",
-							"Kaleigh Lacayo",
-							"Monserrate Goforth",
-							"Clemencia Duffey"};
-	
-	@FXML public void initialize() {
-		//Test data
+
+	// Test variables
+	String[] testNames = { "Irma Guice", "Cecil Helper", "Jaunita Morrow", "Lucina Seymour", "Roberta Beecroft",
+			"Edmund Pershall", "Brenna Mistretta", "Kaleigh Lacayo", "Monserrate Goforth", "Clemencia Duffey" };
+
+	@FXML
+	public void initialize() {
+		// Test data
 		for (int i = 0; i < testNames.length; i++) {
-			createCustomer(testNames[i], customerNr, "Novice", register);
+			createCustomer(testNames[i], "Novice");
 		}
-		
-		//Init table
+
+		// Init table
 		customerNrCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerNr"));
 		customerNameCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("name"));
 		customerPersNrCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("persNr"));
@@ -69,76 +75,95 @@ public class Controller {
 		customerAllergiesCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("allergies"));
 		customerDanceSkillCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("danceSkill"));
 		customerTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-		
-		//Set table
+
+		// Set table
 		customerTable.setItems(customerList);
-		
-		//Filter
+
+		// Filter
 		FilteredList<Customer> filteredCustomerList = new FilteredList<>(customerList, p -> true);
-		
+
 		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredCustomerList.setPredicate(customer -> {
-				if (newValue == null || newValue.isEmpty()) { //Sökfältet är tomt
+				if (newValue == null || newValue.isEmpty()) { // Sökfältet är tomt
 					return true;
-				} else { //Sökfältet inte tomt
+				} else { // Sökfältet inte tomt
 					String lowerCaseFilter = newValue.toLowerCase();
-					return customer.getCustomerNr().toLowerCase().contains(lowerCaseFilter) || customer.getName().toLowerCase().contains(lowerCaseFilter);
+					return customer.getCustomerNr().toLowerCase().contains(lowerCaseFilter)
+							|| customer.getName().toLowerCase().contains(lowerCaseFilter);
 				}
 			});
 		});
-		
+
 		SortedList<Customer> sortedCustomerList = new SortedList<>(filteredCustomerList);
 		sortedCustomerList.comparatorProperty().bind(customerTable.comparatorProperty());
 		customerTable.setItems(sortedCustomerList);
-		
-		//Listener when a customer is selected
+
+		// Listener when a customer is selected
 		customerTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 			refreshButtons();
 		});
 	}
-	
-	//Buttons 
-	@FXML public void deleteButton_click(ActionEvent e) {
+
+	// Buttons
+	@FXML
+	public void deleteButton_click(ActionEvent e) {
 		if (customerTable.getSelectionModel().getSelectedItem() != null) {
-			//markerad kund tas bort
+			// markerad kund tas bort
 			Customer customer = customerTable.getSelectionModel().getSelectedItem();
-			removeCustomer(customer, register);
+			removeCustomer(customer);
 		}
 	}
-	
-	@FXML public void createButton_click(ActionEvent e) {
+
+	@FXML
+	public void createButton_click(ActionEvent e) {
+
 		try {
-			createNewWindow("Create.fxml", "Create Customer");
-			
-		} catch(Exception err) {
+
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Create.fxml"));
+			Parent parent = fxmlLoader.load();
+
+			CreateCustomerController createCustomerController = fxmlLoader.<CreateCustomerController>getController();
+			createCustomerController.init(this);
+
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setScene(new Scene(parent));
+			stage.setTitle("Create Customer");
+			stage.centerOnScreen();
+			stage.show();
+		} catch (IOException err) {
 			err.printStackTrace();
 		}
 	}
-	
-	@FXML public void editButton_click(ActionEvent e) {
-		try {
-			createNewWindow("Edit.fxml", "Edit Customer");
-			
-		} catch(Exception err) {
-			err.printStackTrace();
-		}
+
+	@FXML
+	public void editButton_click(ActionEvent e) {
+		
 	}
-	
-	//Methods
-	private void createCustomer(String name, int customerNbr, String danceSkill, Register reg) {
-		Customer c = new Customer(name, String.format("%07d", customerNbr), danceSkill);
+
+	public int getCustomerNr() {
+		return customerNr;
+	}
+
+	public Register getRegister() {
+		return register;
+	}
+
+	// Methods
+	public void createCustomer(String name, String danceSkill) {
+		Customer c = new Customer(name, String.format("%07d", customerNr), danceSkill);
 		customerNr++;
-		reg.addCustomer(c);
+		register.addCustomer(c);
 		customerList.add(c);
 		customerTable.refresh();
 	}
-	
-	private void removeCustomer(Customer c, Register reg) {
-		reg.removeCustomer(c);
+
+	private void removeCustomer(Customer c) {
+		register.removeCustomer(c);
 		customerList.remove(c);
 		customerTable.refresh();
 	}
-	
+
 	private void refreshButtons() {
 		if (customerTable.getSelectionModel().getSelectedItem() != null) {
 			deleteButton.setDisable(false);
@@ -147,21 +172,5 @@ public class Controller {
 			deleteButton.setDisable(true);
 			editButton.setDisable(true);
 		}
-	}
-	
-	private void createNewWindow(String fxml, String title) {
-		Parent root;
-		try {
-			root = FXMLLoader.load(getClass().getResource(fxml));
-			Stage stage = new Stage();
-			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.setScene(new Scene(root));
-			stage.setTitle(title);
-			stage.centerOnScreen();
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 	}
 }
