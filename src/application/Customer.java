@@ -1,6 +1,7 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Customer {
 	private String name;
@@ -57,7 +58,10 @@ public class Customer {
 	public void setCustomerNr(String customerNr) {
 		this.customerNr = customerNr;
 	}
-	public ArrayList<String> getAllergies() {
+	public String getAllergies() {
+		return allergies.stream().collect(Collectors.joining(", "));
+	}
+	public ArrayList<String> getArrayListAllergies() {
 		return allergies;
 	}
 	public void setAllergies(ArrayList<String> allergies) {

@@ -1,5 +1,8 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -57,6 +60,7 @@ public class CreateCustomerController {
 			String phone = phoneField.getText().trim();
 			String address = addressField.getText().trim();
 			//***ArrayList till allergies***
+			ArrayList<String> allergies = new ArrayList<String>(Arrays.asList(allergiesField.getText().split("[,\\s]"))); 
 			String danceSkill = danceChoiceBox.getValue();
 			
 			Customer c = controller.createCustomer(name, danceSkill);
@@ -64,6 +68,11 @@ public class CreateCustomerController {
 			c.setEmail(email);
 			c.setPhoneNr(phone);
 			c.setAddress(address);
+			c.setAllergies(allergies);
+			
+			//Close
+			Stage stage = (Stage) cancelButton.getScene().getWindow();
+			stage.close();
 		}
 
 	}
