@@ -72,7 +72,7 @@ public class Controller {
 		customerEmailCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("email"));
 		customerTelCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("phoneNr"));
 		customerAddressCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("address"));
-		customerAllergiesCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("allergies"));
+		customerAllergiesCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("stringAllergies"));
 		customerDanceSkillCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("danceSkill"));
 		customerTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -146,6 +146,8 @@ public class Controller {
 				EditCustomerController editCustomerController = fxmlLoader.<EditCustomerController>getController();
 				editCustomerController.init(this, c);
 				
+				
+
 				Stage stage = new Stage();
 				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.setScene(new Scene(parent));

@@ -58,10 +58,10 @@ public class Customer {
 	public void setCustomerNr(String customerNr) {
 		this.customerNr = customerNr;
 	}
-	public String getAllergies() {
+	public String getStringAllergies() {
 		return allergies.stream().collect(Collectors.joining(", "));
 	}
-	public ArrayList<String> getArrayListAllergies() {
+	public ArrayList<String> getAllergies() {
 		return allergies;
 	}
 	public void setAllergies(ArrayList<String> allergies) {
