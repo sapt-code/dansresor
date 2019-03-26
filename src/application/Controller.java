@@ -138,8 +138,27 @@ public class Controller {
 
 	@FXML
 	public void editButton_click(ActionEvent e) {
-		
-	}
+		if (customerTable.getSelectionModel().getSelectedItem() != null) {
+			Customer c = customerTable.getSelectionModel().getSelectedItem();
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Edit.fxml"));
+				Parent parent = fxmlLoader.load();
+				EditCustomerController editCustomerController = fxmlLoader.<EditCustomerController>getController();
+				editCustomerController.init(this, c);
+				
+				
+
+				Stage stage = new Stage();
+				stage.initModality(Modality.APPLICATION_MODAL);
+				stage.setScene(new Scene(parent));
+				stage.setTitle("Edit Customer");
+				stage.centerOnScreen();
+				stage.show();
+			} catch (IOException err) {
+				err.printStackTrace();
+			}
+		}
+	 }
 
 	public int getCustomerNr() {
 		return customerNr;
