@@ -41,7 +41,13 @@ public class EditCustomerController {
     @FXML
     void editButton_click(ActionEvent event) {
     	if (!nameField.getText().isEmpty() && !danceChoiceBox.getValue().isEmpty()) {
-    		
+    		customer.setName(nameField.getText());
+    		customer.setPersNr(personalField.getText());
+    		customer.setEmail(emailField.getText());
+    		customer.setPhoneNr(phoneField.getText());
+    		customer.setAddress(addressField.getText());
+    		// customer.setAllergies(allergiesField.getText());
+    		customer.setDanceSkill(danceChoiceBox.getValue());
     	} else {
     		warningLabel.setText("Name and dance skill is required");
     	}  	

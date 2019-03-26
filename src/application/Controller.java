@@ -146,6 +146,7 @@ public class Controller {
 				EditCustomerController editCustomerController = fxmlLoader.<EditCustomerController>getController();
 				editCustomerController.init(this, c);
 				
+				
 
 				Stage stage = new Stage();
 				stage.initModality(Modality.APPLICATION_MODAL);
