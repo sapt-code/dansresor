@@ -150,12 +150,13 @@ public class Controller {
 	}
 
 	// Methods
-	public void createCustomer(String name, String danceSkill) {
+	public Customer createCustomer(String name, String danceSkill) {
 		Customer c = new Customer(name, String.format("%07d", customerNr), danceSkill);
 		customerNr++;
 		register.addCustomer(c);
 		customerList.add(c);
 		customerTable.refresh();
+		return c;
 	}
 
 	private void removeCustomer(Customer c) {
