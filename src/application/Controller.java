@@ -151,7 +151,8 @@ public class Controller {
 				stage.setScene(new Scene(parent));
 				stage.setTitle("Edit Customer");
 				stage.centerOnScreen();
-				stage.show();
+				stage.showAndWait();
+				customerTable.refresh();
 			} catch (IOException err) {
 				err.printStackTrace();
 			}

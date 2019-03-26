@@ -3,6 +3,7 @@ package application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -42,8 +43,7 @@ public class EditCustomerController {
 
 	@FXML
 	void cancelButton_click(ActionEvent event) {
-		Stage stage = (Stage) cancelButton.getScene().getWindow();
-		stage.close();
+		closeStage(event);
 	}
 
 	@FXML
@@ -56,6 +56,8 @@ public class EditCustomerController {
 			customer.setAddress(addressField.getText());
 			// customer.setAllergies(allergiesField.getText());
 			customer.setDanceSkill(danceChoiceBox.getValue());
+			
+			closeStage(event);
 		} else {
 			warningLabel.setText("Name and dance skill is required");
 		}
@@ -74,5 +76,12 @@ public class EditCustomerController {
 			danceChoiceBox.setValue(customer.getDanceSkill());
 			// allergiesField;
 		}
+	
+	// Close stage and return to Controller
+	private void closeStage(ActionEvent event) {
+		Node source = (Node) event.getSource();
+		Stage stage = (Stage) source.getScene().getWindow();
+		stage.close();
+	}
 	
 }
