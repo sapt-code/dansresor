@@ -48,12 +48,13 @@ public class CreateCustomerController {
 	void createButton_click(ActionEvent event) {
 		if (!nameField.getText().isEmpty() && !danceChoiceBox.getValue().isEmpty()) {
 			String name = nameField.getText().trim();
-			String personal = personalField.getText().trim();
+			String personal = personalField.getText().trim();//Bara skriva personnummer?
 			String email = emailField.getText().trim();
 			String phone = phoneField.getText().trim();
 			String address = addressField.getText().trim();
-			//ArrayList till allergies
+			//***ArrayList till allergies***
 			String danceSkill = danceChoiceBox.getValue();
+			
 			Customer c = controller.createCustomer(name, danceSkill);
 			c.setPersNr(personal);
 			c.setEmail(email);
