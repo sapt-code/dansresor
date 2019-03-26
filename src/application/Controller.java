@@ -27,6 +27,8 @@ public class Controller {
 	private Button editButton;
 	@FXML
 	private Button deleteButton;
+	@FXML 
+	private Button copyButton;
 	// Table variables
 	@FXML
 	private TableView<Customer> customerTable;
@@ -89,7 +91,8 @@ public class Controller {
 				} else { // Sökfältet inte tomt
 					String lowerCaseFilter = newValue.toLowerCase();
 					return customer.getCustomerNr().toLowerCase().contains(lowerCaseFilter)
-							|| customer.getName().toLowerCase().contains(lowerCaseFilter);
+							|| customer.getName().toLowerCase().contains(lowerCaseFilter)
+							|| customer.getDanceSkill().toLowerCase().contains(lowerCaseFilter);
 				}
 			});
 		});
@@ -158,14 +161,15 @@ public class Controller {
 			}
 		}
 	 }
-
-	public int getCustomerNr() {
-		return customerNr;
+	
+	@FXML
+	public void copyButton_click() {
+		for (Customer c: customerTable.getItems()) {
+			System.out.println(c.getName());
+		}
+		
 	}
-
-	public Register getRegister() {
-		return register;
-	}
+	
 
 	// Methods
 	public Customer createCustomer(String name, String danceSkill) {

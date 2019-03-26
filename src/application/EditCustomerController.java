@@ -13,6 +13,7 @@ import application.Controller;
 
 public class EditCustomerController {
 
+	@SuppressWarnings("unused")
 	private Controller controller;
 	private Customer customer;
 
