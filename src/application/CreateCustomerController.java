@@ -46,7 +46,11 @@ public class CreateCustomerController {
 
 	@FXML
 	void createButton_click(ActionEvent event) {
-		if (!nameField.getText().isEmpty() && !danceChoiceBox.getValue().isEmpty()) {
+		if (nameField.getText().isEmpty()  || danceChoiceBox.getValue()==null) {
+			warningLabel.setText("Name and dance skill is required");
+			
+		} else {
+			
 			String name = nameField.getText().trim();
 			String personal = personalField.getText().trim();//Bara skriva personnummer?
 			String email = emailField.getText().trim();
@@ -60,9 +64,6 @@ public class CreateCustomerController {
 			c.setEmail(email);
 			c.setPhoneNr(phone);
 			c.setAddress(address);
-			
-		} else {
-			warningLabel.setText("Name and dance skill is required");
 		}
 
 	}
