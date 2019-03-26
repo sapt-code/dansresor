@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -12,7 +13,7 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
-      <SplitPane dividerPositions="0.2112676056338028" prefHeight="768.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.22535211267605634" prefHeight="768.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <AnchorPane prefHeight="766.0" prefWidth="347.0">
                <children>
@@ -21,17 +22,24 @@
                         <HBox alignment="CENTER">
                            <children>
                               <Label text="Search: " />
-                              <TextField fx:id="searchField" />
+                              <TextField fx:id="searchField" prefWidth="170.0" />
                            </children>
                         </HBox>
                         <Button fx:id="createButton" mnemonicParsing="false" onAction="#createButton_click" prefWidth="127.0" text="Create customer" />
                         <Button fx:id="editButton" disable="true" mnemonicParsing="false" onAction="#editButton_click" prefWidth="127.0" text="Edit customer" />
                         <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" onAction="#deleteButton_click" prefWidth="127.0" text="Delete customer" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <ComboBox fx:id="skillComboBox" prefWidth="150.0" promptText="Dance Skill" />
+                            <Button fx:id="skillSortButton" mnemonicParsing="false" onAction="#sortDanceSkillButton_click" text="Sort" />
+                           </children>
+                        </HBox>
+                        <Button fx:id="copyButton" mnemonicParsing="false" onAction="#copyButton_click" text="Copy All Emails In Table" />
                      </children>
                   </VBox>
                </children>
             </AnchorPane>
-            <TableView fx:id="customerTable">
+            <TableView fx:id="customerTable" prefHeight="718.0" prefWidth="963.0">
               <columns>
                 <TableColumn fx:id="customerNrCol" prefWidth="100.0" text="Customer Nr" />
                 <TableColumn fx:id="customerNameCol" prefWidth="141.0" text="Name" />

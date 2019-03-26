@@ -9,6 +9,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import application.Controller;
 
 public class EditCustomerController {
@@ -54,7 +58,8 @@ public class EditCustomerController {
 			customer.setEmail(emailField.getText());
 			customer.setPhoneNr(phoneField.getText());
 			customer.setAddress(addressField.getText());
-			// customer.setAllergies(allergiesField.getText());
+			ArrayList<String> allergies = new ArrayList<String>(Arrays.asList(allergiesField.getText().split("[,\\s]")));
+			customer.setAllergies(allergies);
 			customer.setDanceSkill(danceChoiceBox.getValue());
 			
 			closeStage(event);
@@ -66,7 +71,6 @@ public class EditCustomerController {
 	public void init(Controller contr, Customer c) {
 			controller = contr;
 			customer = c;
-			warningLabel.setText(customer.getName() + " is selected");
 
 			nameField.setText(customer.getName());
 			personalField.setText(customer.getPersNr());
@@ -74,7 +78,7 @@ public class EditCustomerController {
 			phoneField.setText(customer.getPhoneNr());
 			addressField.setText(customer.getAddress());
 			danceChoiceBox.setValue(customer.getDanceSkill());
-			// allergiesField;
+			allergiesField.setText(customer.getAllergies());
 		}
 	
 	// Close stage and return to Controller
